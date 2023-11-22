@@ -150,6 +150,7 @@ export default class ModulesTreemap extends Component {
           onGroupHover={this.handleTreemapGroupHover}
           onGroupSecondaryClick={this.handleTreemapGroupSecondaryClick}
           onResize={this.handleResize}
+          style={{ height: 800, width: 800 }}
         />
         <Tooltip visible={showTooltip}>{tooltipContent}</Tooltip>
         <ContextMenu

@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import gzipSize from 'gzip-size';
+import { gzipSizeSync } from 'gzip-size';
 
 import { TransformedModule } from '../../types';
 
@@ -28,7 +28,7 @@ export default class Folder extends Node {
 
   get gzipSize() {
     if (!_.has(this, '_gzipSize')) {
-      this._gzipSize = this.code ? gzipSize.gzipSizeSync(this.code) : 0;
+      this._gzipSize = this.code ? gzipSizeSync(this.code) : 0;
     }
 
     return this._gzipSize;

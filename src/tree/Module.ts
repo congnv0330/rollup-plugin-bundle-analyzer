@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import gzipSize from 'gzip-size';
+import { gzipSizeSync } from 'gzip-size';
 
 import type { TransformedModule } from '../../types';
 import { createBrotliSizeGetter } from '../size';
@@ -36,7 +36,7 @@ export default class Module extends Node {
 
   get gzipSize() {
     if (!_.has(this, '_gzipSize')) {
-      this._gzipSize = this.code ? gzipSize.gzipSizeSync(this.code) : undefined;
+      this._gzipSize = this.code ? gzipSizeSync(this.code) : undefined;
     }
 
     return this._gzipSize;

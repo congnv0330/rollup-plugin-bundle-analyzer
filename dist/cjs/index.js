@@ -9,7 +9,7 @@ var gzipSize = require('gzip-size');
 var path = require('path');
 var http = require('http');
 var url = require('url');
-var WebSocket = require('ws');
+var ws = require('ws');
 var sirv = require('sirv');
 require('util');
 var opener = require('opener');
@@ -423,6 +423,12 @@ function getAssetContent(filename) {
 function html(strings, ...values) {
     return strings.map((string, index) => `${string}${values[index] || ''}`).join('');
 }
+function getCss(filename, mode) {
+    if (mode === 'static') {
+        return `<!-- ${_.escape(filename)} --> <style>${getAssetContent(filename)}</style>`;
+    }
+    return `<link rel="stylesheet" href="${_.escape(filename)}">`;
+}
 function getScript(filename, mode) {
     if (mode === 'static') {
         return `<!-- ${_.escape(filename)} --> <script>${getAssetContent(filename)}</script>`;
@@ -439,6 +445,7 @@ function renderViewer({ title, enableWebSocket, chartData, defaultSizes, mode } 
         <script>
           window.enableWebSocket = ${escapeJson(enableWebSocket)};
         </script>
+        ${getCss('viewer.css', mode)}
         ${getScript('viewer.js', mode)}
       </head>
 
@@ -500,7 +507,7 @@ async function startServer(opts, moduleData, getModuleDataFun) {
             }
         });
     });
-    const wss = new WebSocket.Server({ server });
+    const wss = new ws.WebSocketServer({ server });
     wss.on('connection', (ws) => {
         ws.on('error', (err) => {
             // Ignore network errors like `ECONNRESET`, `EPIPE`, etc.
@@ -522,7 +529,7 @@ async function startServer(opts, moduleData, getModuleDataFun) {
         if (!newChartData)
             return;
         wss.clients.forEach((client) => {
-            if (client.readyState === WebSocket.OPEN) {
+            if (client.readyState === ws.WebSocket.OPEN) {
                 client.send(JSON.stringify({
                     event: 'chartDataUpdated',
                     data: newChartData

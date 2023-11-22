@@ -2,7 +2,7 @@ import * as path from 'path';
 import * as http from 'http';
 import * as url from 'url';
 
-import WebSocket from 'ws';
+import { WebSocket, WebSocketServer } from 'ws';
 import sirv from 'sirv';
 import pkg from 'chalk';
 
@@ -75,7 +75,7 @@ async function startServer(
     });
   });
 
-  const wss = new WebSocket.Server({ server });
+  const wss = new WebSocketServer({ server });
 
   wss.on('connection', (ws) => {
     ws.on('error', (err) => {

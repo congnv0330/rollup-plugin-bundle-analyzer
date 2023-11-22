@@ -1,6 +1,6 @@
 {
-  "name": "rollup-plugin-bundle-analyzer",
-  "version": "1.6.6",
+  "name": "@congnv0330/rollup-plugin-bundle-analyzer",
+  "version": "2.0.7",
   "publishConfig": {
     "access": "public"
   },
@@ -41,18 +41,15 @@
     "prebuild": "del-cli dist",
     "prepare": "if [ ! -d 'dist' ]; then pnpm build; fi",
     "prerelease": "pnpm build",
-    "pretest": "pnpm build",
-    "release": "pnpm --workspace-root plugin:release --pkg $npm_package_name",
+    "release": "pnpm run build:client & pnpm run build && npm publish --access public",
     "test": "ava",
     "test:ts": "tsc --noEmit"
   },
   "files": [
     "dist",
-    "!dist/**/*.map",
     "types",
     "README.md",
-    "public",
-    ""
+    "public"
   ],
   "keywords": [
     "vite",
@@ -82,6 +79,7 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "^7.23.3",
+    "@babel/plugin-transform-class-properties": "^7.23.3",
     "@carrotsearch/foamtree": "^3.5.1",
     "@preact/preset-vite": "^2.7.0",
     "@rollup/plugin-commonjs": "^25.0.7",

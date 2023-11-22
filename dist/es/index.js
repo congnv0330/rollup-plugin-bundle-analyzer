@@ -1,13 +1,13 @@
 import pkg from 'chalk';
 import { minify } from 'terser';
 import _ from 'lodash';
-import gzipSize from 'gzip-size';
+import { gzipSizeSync } from 'gzip-size';
 import * as path from 'path';
 import path__default from 'path';
 import * as http from 'http';
 import * as url from 'url';
 import url__default from 'url';
-import WebSocket from 'ws';
+import { WebSocketServer, WebSocket } from 'ws';
 import sirv from 'sirv';
 import 'util';
 import opener from 'opener';
@@ -60,7 +60,7 @@ class Module extends Node {
     }
     get gzipSize() {
         if (!_.has(this, '_gzipSize')) {
-            this._gzipSize = this.code ? gzipSize.gzipSizeSync(this.code) : undefined;
+            this._gzipSize = this.code ? gzipSizeSync(this.code) : undefined;
         }
         return this._gzipSize;
     }
@@ -93,7 +93,7 @@ class Folder extends Node {
     }
     get gzipSize() {
         if (!_.has(this, '_gzipSize')) {
-            this._gzipSize = this.code ? gzipSize.gzipSizeSync(this.code) : 0;
+            this._gzipSize = this.code ? gzipSizeSync(this.code) : 0;
         }
         return this._gzipSize;
     }
@@ -399,6 +399,12 @@ function getAssetContent(filename) {
 function html(strings, ...values) {
     return strings.map((string, index) => `${string}${values[index] || ''}`).join('');
 }
+function getCss(filename, mode) {
+    if (mode === 'static') {
+        return `<!-- ${_.escape(filename)} --> <style>${getAssetContent(filename)}</style>`;
+    }
+    return `<link rel="stylesheet" href="${_.escape(filename)}">`;
+}
 function getScript(filename, mode) {
     if (mode === 'static') {
         return `<!-- ${_.escape(filename)} --> <script>${getAssetContent(filename)}</script>`;
@@ -415,6 +421,7 @@ function renderViewer({ title, enableWebSocket, chartData, defaultSizes, mode } 
         <script>
           window.enableWebSocket = ${escapeJson(enableWebSocket)};
         </script>
+        ${getCss('viewer.css', mode)}
         ${getScript('viewer.js', mode)}
       </head>
 
@@ -476,7 +483,7 @@ async function startServer(opts, moduleData, getModuleDataFun) {
             }
         });
     });
-    const wss = new WebSocket.Server({ server });
+    const wss = new WebSocketServer({ server });
     wss.on('connection', (ws) => {
         ws.on('error', (err) => {
             // Ignore network errors like `ECONNRESET`, `EPIPE`, etc.
