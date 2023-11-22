@@ -1,5 +1,5 @@
 import { Component } from 'preact';
-import filesize from 'filesize';
+import { filesize } from 'filesize';
 import { computed } from 'mobx';
 import { observer } from 'mobx-react';
 
@@ -13,7 +13,7 @@ import Checkbox from './Checkbox';
 import CheckboxList from './CheckboxList';
 import ContextMenu from './ContextMenu';
 
-import s from './ModulesTreemap.css';
+import s from './ModulesTreemap.module.css';
 import Search from './Search';
 import { store } from '../store';
 import ModulesList from './ModulesList';

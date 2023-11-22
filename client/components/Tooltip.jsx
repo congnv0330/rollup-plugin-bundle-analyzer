@@ -1,7 +1,7 @@
 import {Component} from 'preact';
 import cls from 'classnames';
 
-import s from './Tooltip.css';
+import s from './Tooltip.module.css';
 
 export default class Tooltip extends Component {
 

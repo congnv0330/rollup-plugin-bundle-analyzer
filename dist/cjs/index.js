@@ -15,6 +15,7 @@ require('util');
 var opener = require('opener');
 var fs = require('fs');
 
+var _documentCurrentScript = typeof document !== 'undefined' ? document.currentScript : null;
 function _interopNamespaceDefault(e) {
     var n = Object.create(null);
     if (e) {
@@ -83,7 +84,7 @@ class Module extends Node {
     }
     get gzipSize() {
         if (!_.has(this, '_gzipSize')) {
-            this._gzipSize = this.code ? gzipSize.sync(this.code) : undefined;
+            this._gzipSize = this.code ? gzipSize.gzipSizeSync(this.code) : undefined;
         }
         return this._gzipSize;
     }
@@ -116,7 +117,7 @@ class Folder extends Node {
     }
     get gzipSize() {
         if (!_.has(this, '_gzipSize')) {
-            this._gzipSize = this.code ? gzipSize.sync(this.code) : 0;
+            this._gzipSize = this.code ? gzipSize.gzipSizeSync(this.code) : 0;
         }
         return this._gzipSize;
     }
@@ -405,7 +406,7 @@ const open = function (uri) {
 };
 
 // @ts-ignore
-const fileName = url.fileURLToPath((typeof document === 'undefined' ? new (require('u' + 'rl').URL)('file:' + __filename).href : (document.currentScript && document.currentScript.src || new URL('index.js', document.baseURI).href)));
+const fileName = url.fileURLToPath((typeof document === 'undefined' ? require('u' + 'rl').pathToFileURL(__filename).href : (_documentCurrentScript && _documentCurrentScript.src || new URL('index.js', document.baseURI).href)));
 const __dirname$2 = path.dirname(fileName);
 const projectRoot$1 = path.resolve(__dirname$2, '..', '..');
 const assetsRoot = path.join(projectRoot$1, 'public');
@@ -455,7 +456,7 @@ const { bold } = pkg;
 let serverInstance;
 // @ts-ignore
 // eslint-disable-next-line no-underscore-dangle
-const __filename$1 = url__namespace.fileURLToPath((typeof document === 'undefined' ? new (require('u' + 'rl').URL)('file:' + __filename).href : (document.currentScript && document.currentScript.src || new URL('index.js', document.baseURI).href)));
+const __filename$1 = url__namespace.fileURLToPath((typeof document === 'undefined' ? require('u' + 'rl').pathToFileURL(__filename).href : (_documentCurrentScript && _documentCurrentScript.src || new URL('index.js', document.baseURI).href)));
 const __dirname$1 = path__namespace.dirname(__filename$1);
 const projectRoot = path__namespace.resolve(__dirname$1, '..', '..');
 function analyzerUrl(options) {

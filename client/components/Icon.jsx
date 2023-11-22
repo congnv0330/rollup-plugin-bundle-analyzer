@@ -1,5 +1,5 @@
 import cls from 'classnames';
-import s from './Icon.css';
+import s from './Icon.module.css';
 import PureComponent from '../lib/PureComponent';
 
 import iconArrowRight from '../assets/icon-arrow-right.svg';

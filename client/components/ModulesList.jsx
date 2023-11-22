@@ -1,5 +1,5 @@
 import cls from 'classnames';
-import s from './ModulesList.css';
+import s from './ModulesList.module.css';
 import ModuleItem from './ModuleItem';
 import PureComponent from '../lib/PureComponent';
 

@@ -1,7 +1,7 @@
 import { Component } from 'preact';
 import cls from 'classnames';
 
-import s from './Sidebar.css';
+import s from './Sidebar.module.css';
 import Button from './Button';
 import Icon from './Icon';
 

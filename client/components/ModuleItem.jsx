@@ -1,9 +1,9 @@
 import _ from 'lodash';
-import filesize from 'filesize';
+import { filesize } from 'filesize';
 import cls from 'classnames';
 
 import PureComponent from '../lib/PureComponent';
-import s from './ModuleItem.css';
+import s from './ModuleItem.module.css';
 
 export default class ModuleItem extends PureComponent {
   state = {

@@ -1,5 +1,5 @@
 import cls from 'classnames';
-import s from './Button.css';
+import s from './Button.module.css';
 import PureComponent from '../lib/PureComponent';
 
 export default class Button extends PureComponent {

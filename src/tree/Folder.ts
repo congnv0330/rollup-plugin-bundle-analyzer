@@ -28,7 +28,7 @@ export default class Folder extends Node {
 
   get gzipSize() {
     if (!_.has(this, '_gzipSize')) {
-      this._gzipSize = this.code ? gzipSize.sync(this.code) : 0;
+      this._gzipSize = this.code ? gzipSize.gzipSizeSync(this.code) : 0;
     }
 
     return this._gzipSize;

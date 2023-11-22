@@ -1,5 +1,5 @@
 import cls from 'classnames';
-import s from './ContextMenuItem.css';
+import s from './ContextMenuItem.module.css';
 
 function noop() {
   return false;

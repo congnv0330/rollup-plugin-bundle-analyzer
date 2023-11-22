@@ -29,6 +29,13 @@ function html(strings: TemplateStringsArray, ...values: string[]) {
   return strings.map((string, index) => `${string}${values[index] || ''}`).join('');
 }
 
+function getCss(filename: string, mode?: string) {
+  if (mode === 'static') {
+    return `<!-- ${_.escape(filename)} --> <style>${getAssetContent(filename)}</style>`;
+  }
+  return `<link rel="stylesheet" href="${_.escape(filename)}">`;
+}
+
 function getScript(filename: string, mode?: string) {
   if (mode === 'static') {
     return `<!-- ${_.escape(filename)} --> <script>${getAssetContent(filename)}</script>`;
@@ -58,6 +65,7 @@ export default function renderViewer({
         <script>
           window.enableWebSocket = ${escapeJson(enableWebSocket)};
         </script>
+        ${getCss('viewer.css', mode)}
         ${getScript('viewer.js', mode)}
       </head>
 

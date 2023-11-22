@@ -1,5 +1,5 @@
 import SwitcherItem from './SwitcherItem';
-import s from './Switcher.css';
+import s from './Switcher.module.css';
 import PureComponent from '../lib/PureComponent';
 
 export default class Switcher extends PureComponent {

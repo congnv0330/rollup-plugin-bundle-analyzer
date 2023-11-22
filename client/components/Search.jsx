@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-import s from './Search.css';
+import s from './Search.module.css';
 import Button from './Button';
 import PureComponent from '../lib/PureComponent';
 

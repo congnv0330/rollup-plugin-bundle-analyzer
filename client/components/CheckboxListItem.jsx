@@ -2,7 +2,7 @@ import {Component} from 'preact';
 
 import Checkbox from './Checkbox';
 import CheckboxList from './CheckboxList';
-import s from './CheckboxList.css';
+import s from './CheckboxList.module.css';
 
 export default class CheckboxListItem extends Component {
 
